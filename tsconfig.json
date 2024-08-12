@@ -9,6 +9,8 @@
     "noPropertyAccessFromIndexSignature": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
+    "baseUrl": "./",
+    "resolveJsonModule": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
     "sourceMap": true,
