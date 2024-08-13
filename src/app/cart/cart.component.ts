@@ -5,9 +5,10 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   template: `
-    <article>
+      <article class="cart">
         <h2>Your cart(0)</h2>
-        <img [src]="emptyCartImg" alt="cart">
+        <img [src]="emptyCartImg" alt="empty cart">
+        <p>Your added items will appear here</p>
       </article>
   `,
   styleUrl: './cart.component.css'

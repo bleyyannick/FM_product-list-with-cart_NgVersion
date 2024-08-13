@@ -4,9 +4,12 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Red Hat Text", sans-serif;
+}
+
+html, body {
   background-color: hsl(13, 31%, 94%);
 }
 
 body {
-  padding: 2rem; 
+  padding: 3rem; 
 }
