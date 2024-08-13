@@ -1,5 +1,4 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, signal, ViewEncapsulation } from '@angular/core';
 import  productList  from '../assets/data.json';
 import { Product } from './models/product';
 import { ProductListComponent } from "./product/product-list/product-list.component";
@@ -8,7 +7,7 @@ import { CartComponent } from "./cart/cart.component";
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, ProductListComponent, CartComponent],
+  imports: [ ProductListComponent, CartComponent],
   template: `
     <main>
        <h1> Desserts</h1>

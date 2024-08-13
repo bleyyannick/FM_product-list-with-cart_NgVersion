@@ -16,6 +16,5 @@ export class ProductListComponent {
     products = input.required<Product[]>();
 
     constructor() {
-        console.log(this.products);
     }
 }

@@ -12,14 +12,18 @@
 .product-image {
     height: 60%; 
     width: 100%;
-    border-radius: 8px; 
-    overflow: hidden;
     align-items: center;
 }
 .product-image > img{
     height: 100%;
     width: 100%;
+    border-radius: 8px;
+    overflow: hidden;
     object-fit: cover;
+}
+
+.product-quantity {
+    color: #FFF;
 }
 
 .btn {
@@ -32,6 +36,16 @@
   position: relative;
   bottom: 23px;
   background-color: white;
+}
+
+.isSelected {
+    border: 2px solid maroon;
+}
+.selected-product {
+    background-color: maroon; 
+    display: flex; 
+    justify-content: space-between;
+
 }
 
 .icon-cart {
