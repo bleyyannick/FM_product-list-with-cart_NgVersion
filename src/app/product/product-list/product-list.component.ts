@@ -7,7 +7,6 @@ import { ProductItemComponent } from "../product-item/product-item.component";
   standalone: true,
   imports: [ProductItemComponent],
   template: `
-  <h1> Product List</h1>
   @for (product of products(); track product.name) {
     <app-product-item [product]="product"></app-product-item>
   }`,

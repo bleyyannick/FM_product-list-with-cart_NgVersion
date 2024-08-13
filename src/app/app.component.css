@@ -1,0 +1,13 @@
+
+:host {
+    display: flex;
+}
+
+main {
+    width: 75%;
+}
+aside {
+    width: 25%;
+    padding: 1rem;
+    background-color: hsl(13, 31%, 94%);
+}

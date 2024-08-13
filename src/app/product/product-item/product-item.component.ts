@@ -6,12 +6,20 @@ import { Product } from 'src/app/models/product';
   standalone: true,
   imports: [],
   template: `
-    <div class="product-item">
-      <img [src]="product().image.thumbnail" alt="{{product().name}}">
-      <h2>{{product().name}}</h2>
-      <p>{{product().price }}</p>
-      <p>{{product().category}}</p>
-    </div>
+    <article class="product-item">
+      <div class="product-image">
+          <img [src]="product().image.desktop" alt="{{product().name}}">
+          <button class="btn product-add-to-cart">
+            <img class="icon-cart" src="assets/images/icon-add-to-cart.svg" alt="Add to cart">
+            Add to cart
+          </button>
+      </div>
+      <div class="product-description">
+          <p> {{product().category}}</p>
+          <p>{{product().name}}</p>
+          <p>{{product().price}}</p>
+      </div>     
+  </article>
   `,
   styleUrl: './product-item.component.css'
 })
