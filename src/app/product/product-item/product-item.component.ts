@@ -21,9 +21,9 @@ import { Product } from 'src/app/models/product';
                 'selected-product': isSelected()
               }">
             @if (isSelected())  {
-               <img (click)="onDecrement()"  src="assets/images/icon-decrement-quantity.svg" alt="decrement product quantity" />
+               <img class="icon-decrement" (click)="onDecrement($event)"  src="assets/images/icon-decrement-quantity.svg" alt="decrement product quantity" />
                  <p class="product-quantity">{{productQuantity()}}</p>
-               <img (click)="onIncrement()"  src="assets/images/icon-increment-quantity.svg" alt="increment product quantity" />
+               <img class="icon-increment" (click)="onIncrement($event)"  src="assets/images/icon-increment-quantity.svg" alt="increment product quantity" />
             } @else {
               <img class="icon-cart" src="assets/images/icon-add-to-cart.svg" alt="Add to cart" />
               Add to cart
@@ -51,13 +51,18 @@ export class ProductItemComponent {
     this.isSelected.set(true);
   }
 
-  onIncrement() {
-    this.productQuantity.set(this.productQuantity() + 1);
+  onIncrement(event: Event) {
+    event.stopPropagation();
+    this.productQuantity.update((quantity) => quantity + 1);
   }
 
-  onDecrement() {
-    if(this.productQuantity() >= 1)  {
-      this.productQuantity.set(this.productQuantity() - 1);
+  onDecrement(event: Event) {
+    event.stopPropagation();
+    if (this.productQuantity() < 1) {
+      this.isSelected.update((isSelected) => !isSelected);
+    }
+    if(this.productQuantity() > 0){
+      this.productQuantity.update((quantity) => quantity - 1);
     }
   }
     

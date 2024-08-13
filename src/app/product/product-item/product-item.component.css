@@ -47,6 +47,9 @@
     justify-content: space-between;
 
 }
+img:hover {
+    cursor: pointer;
+}
 
 .icon-cart {
     margin-right: 5px;
