@@ -12,8 +12,8 @@ import  productData  from '../../../assets/data.json'
     <app-product-item 
      [item]="product"
      (onAddCart)="addCart($event)"
-      (onDecrement)="decrement($event)"
-      (onIncrement)="increment($event)">
+     (onDecrement)="decrement($event)"
+     (onIncrement)="increment($event)">
     </app-product-item>
   }`,
   styleUrl: './product-list.component.css'
@@ -47,7 +47,6 @@ export class ProductListComponent {
         const index = products.findIndex(({item}) => item.name === selectedProduct.item.name);
         if (index > -1) {
           products[index].quantity--;
-          console.log(products[index].quantity)
         }
         if (products[index].quantity === 0) {
           products[index].isSelected = false;
@@ -58,7 +57,7 @@ export class ProductListComponent {
 
     increment(selectedProduct: selectableProduct) {
       this.products.update((products)=>{
-        const index = products.findIndex(({item}) => item.name === selectedProduct.item.name);
+        const index = [...products].findIndex(({item}) => item.name === selectedProduct.item.name);
         if (index > -1) {
           products[index].quantity++;
           products[index].isSelected = true;
