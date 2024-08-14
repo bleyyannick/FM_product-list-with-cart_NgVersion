@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output,  } from '@angular/core';
 import { selectableProduct } from 'src/app/models/product';
 
 @Component({
@@ -9,21 +9,21 @@ import { selectableProduct } from 'src/app/models/product';
     <article class="product-item">
       <div class="product-image">
           <img 
-           [src]="selectableProduct().item.image.desktop" 
-           alt="{{selectableProduct().item.name}}"
+           [src]="item().item.image.desktop" 
+           alt="{{item().item.name}}"
            [class]="{
             'isSelected': isSelectableProduct(),
            }">
           <button 
-             (click)="onAddCart()" 
+             (click)="addCart()" 
               [class]="{
                 'btn': true,
                 'selected-product': isSelectableProduct(),
               }">
             @if (isSelectableProduct()) {
-               <img class="icon-decrement" (click)="onDecrement($event)"  src="assets/images/icon-decrement-quantity.svg" alt="decrement product quantity" />
-                 <p class="product-quantity">{{selectableProduct().quantity}}</p>
-               <img class="icon-increment" (click)="onIncrement($event)"  src="assets/images/icon-increment-quantity.svg" alt="increment product quantity" />
+               <img class="icon-decrement" (click)="decrement($event)"  src="assets/images/icon-decrement-quantity.svg" alt="decrement product quantity" />
+                 <p class="product-quantity">{{item().quantity}}</p>
+               <img class="icon-increment" (click)="increment($event)"  src="assets/images/icon-increment-quantity.svg" alt="increment product quantity" />
             } @else {
               <img class="icon-cart" src="assets/images/icon-add-to-cart.svg" alt="Add to cart" />
               Add to cart
@@ -32,39 +32,39 @@ import { selectableProduct } from 'src/app/models/product';
           </button>
       </div>
       <div class="product-description">
-          <p> {{selectableProduct().item.category}}</p>
-          <p>{{selectableProduct().item.name}}</p>
-          <p>{{selectableProduct().item.price}}</p>
+          <p> {{item().item.category}}</p>
+          <p>{{item().item.name}}</p>
+          <p>{{item().item.price}}</p>
       </div>     
   </article>
   `,
   styleUrl: './product-item.component.css'
 })
 export class ProductItemComponent {
+  item = input.required<selectableProduct>();
 
-  selectableProduct = input.required<selectableProduct>({})
+  onAddCart = output<selectableProduct>();
+  onIncrement = output<selectableProduct>();
+  onDecrement = output<selectableProduct>();
 
-  onAddCart() {
-    this.selectableProduct().isSelected = true;
-    this.selectableProduct().quantity = 1;
+  addCart() {
+    this.onAddCart.emit(this.item());
   }
-
-  onIncrement(event: Event) {
+  
+  increment(event: Event) {
     event.stopPropagation();
-    this.selectableProduct().quantity = this.selectableProduct().quantity + 1;
+    this.onIncrement.emit(this.item());
   }
 
-  onDecrement(event: Event) {
+  decrement(event: Event) {
     event.stopPropagation();
-    if (this.selectableProduct().quantity < 1) {
-      this.selectableProduct().isSelected = false;
-    } else  {
-      this.selectableProduct().quantity = this.selectableProduct().quantity - 1;
-    }
+    this.onDecrement.emit(this.item());
   }
 
-  isSelectableProduct() :boolean {
-    return this.selectableProduct().isSelected && this.selectableProduct().quantity > 0 
+  isSelectableProduct() {
+    return this.item().isSelected;
   }
+
+
 
 }
