@@ -1,6 +1,6 @@
 import { Component, signal, ViewEncapsulation } from '@angular/core';
 import  productList  from '../assets/data.json';
-import { Product } from './models/product';
+import { Product, selectableProduct } from './models/product';
 import { ProductListComponent } from "./product/product-list/product-list.component";
 import { CartComponent } from "./cart/cart.component";
 
@@ -11,7 +11,7 @@ import { CartComponent } from "./cart/cart.component";
   template: `
     <main>
        <h1> Desserts</h1>
-       <app-product-list [products]="productList()"></app-product-list>
+       <app-product-list [products]="selectableProducts()"></app-product-list>
     </main>
     <aside>
       <app-cart></app-cart>
@@ -21,8 +21,14 @@ import { CartComponent } from "./cart/cart.component";
 })
 export class AppComponent {
   productList = signal<Product[]>([]);
+  selectableProducts = signal<selectableProduct[]>([]);
 
    constructor() {
     this.productList.set(productList);
+    this.selectableProducts.set(productList.map(product => ({
+      item: product,
+      isSelected: false,
+      quantity: 0,
+    })));
   }
 }

@@ -1,4 +1,4 @@
-export interface Product {
+export type Product = {
     image: {
         thumbnail: string;
         mobile: string;
@@ -9,3 +9,10 @@ export interface Product {
     price: number;
     category: string;
 }
+
+export type selectableProduct = {
+    item: Product;
+    isSelected: boolean;
+    quantity: number;
+}
+
