@@ -1,4 +1,4 @@
-import { Component, input, output,  } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { selectableProduct } from 'src/app/models/product';
 
 @Component({
@@ -15,17 +15,16 @@ import { selectableProduct } from 'src/app/models/product';
             'isSelected': isSelectableProduct(),
            }">
           <button 
-             (click)="addCart()" 
               [class]="{
                 'btn': true,
                 'selected-product': isSelectableProduct(),
               }">
             @if (isSelectableProduct()) {
-               <img class="icon-decrement" (click)="decrement($event)"  src="assets/images/icon-decrement-quantity.svg" alt="decrement product quantity" />
+               <img class="icon-decrement" (click)="decrement()"  src="assets/images/icon-decrement-quantity.svg" alt="decrement product quantity" />
                  <p class="product-quantity">{{item().quantity}}</p>
-               <img class="icon-increment" (click)="increment($event)"  src="assets/images/icon-increment-quantity.svg" alt="increment product quantity" />
+               <img class="icon-increment" (click)="increment()"  src="assets/images/icon-increment-quantity.svg" alt="increment product quantity" />
             } @else {
-              <img class="icon-cart" src="assets/images/icon-add-to-cart.svg" alt="Add to cart" />
+              <img (click)="addCart()" class="icon-cart" src="assets/images/icon-add-to-cart.svg" alt="Add to cart" />
               Add to cart
             }
            
@@ -42,7 +41,6 @@ import { selectableProduct } from 'src/app/models/product';
 })
 export class ProductItemComponent {
   item = input.required<selectableProduct>();
-
   onAddCart = output<selectableProduct>();
   onIncrement = output<selectableProduct>();
   onDecrement = output<selectableProduct>();
@@ -51,13 +49,11 @@ export class ProductItemComponent {
     this.onAddCart.emit(this.item());
   }
   
-  increment(event: Event) {
-    event.stopPropagation();
+  increment() {
     this.onIncrement.emit(this.item());
   }
 
-  decrement(event: Event) {
-    event.stopPropagation();
+  decrement() {
     this.onDecrement.emit(this.item());
   }
 

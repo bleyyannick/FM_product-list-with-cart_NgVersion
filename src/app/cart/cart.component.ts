@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { selectableProduct } from '../models/product';
 
 @Component({
   selector: 'app-cart',
@@ -7,12 +8,27 @@ import { Component } from '@angular/core';
   template: `
       <article class="cart">
         <h2>Your cart(0)</h2>
-        <img [src]="emptyCartImg" alt="empty cart">
-        <p>Your added items will appear here</p>
+        
+        @for( addedItem of itemsInCart(); track addedItem.item.name) {
+          <h1>{{addedItem.item.name}}</h1>
+          <p>{{addedItem.item.price}}</p>
+          <p>{{addedItem.quantity}}</p>
+
+        } @empty {
+          <img [src]="emptyCartImg" alt="empty cart">
+          <p>Your added items will appear here</p>
+        }
+        
       </article>
   `,
   styleUrl: './cart.component.css'
 })
 export class CartComponent {
+  itemsInCart = input<selectableProduct[]>();
+  
   emptyCartImg = 'assets/images/illustration-empty-cart.svg';
+
+  constructor() {
+    console.log(this.itemsInCart());
+  }
 }

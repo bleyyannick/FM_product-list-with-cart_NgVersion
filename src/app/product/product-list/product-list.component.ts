@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, output, signal } from '@angular/core';
 import { Product, selectableProduct } from 'src/app/models/product';
 import { ProductItemComponent } from "../product-item/product-item.component";
 import  productData  from '../../../assets/data.json'
@@ -19,8 +19,11 @@ import  productData  from '../../../assets/data.json'
   styleUrl: './product-list.component.css'
 })
 export class ProductListComponent {
+  
     products = signal<selectableProduct[]>([]);
     productData = signal<Product[]>([]);
+
+    addItemsToCart = output<selectableProduct>({});
 
     constructor() {
       this.productData.set(productData);
@@ -32,18 +35,20 @@ export class ProductListComponent {
     }
    
     addCart(selectedProduct: selectableProduct) {
-      this.products.update((products)=>{
+      this.products.update(products=>{
         const index = products.findIndex(({item}) => item.name === selectedProduct.item.name);
         if (index > -1) {
           products[index].quantity++;
           products[index].isSelected = true;
+          this.addItemsToCart.emit(selectedProduct);
         }
         return products;
       })
+
     }
 
     decrement(selectedProduct: selectableProduct) {
-      this.products.update((products)=>{
+      this.products.update(products=>{
         const index = products.findIndex(({item}) => item.name === selectedProduct.item.name);
         if (index > -1) {
           products[index].quantity--;
@@ -56,7 +61,7 @@ export class ProductListComponent {
     }
 
     increment(selectedProduct: selectableProduct) {
-      this.products.update((products)=>{
+      this.products.update(products=>{
         const index = [...products].findIndex(({item}) => item.name === selectedProduct.item.name);
         if (index > -1) {
           products[index].quantity++;
