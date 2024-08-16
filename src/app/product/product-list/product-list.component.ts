@@ -24,6 +24,7 @@ export class ProductListComponent {
     productData = signal<Product[]>([]);
 
     addItemsToCart = output<selectableProduct>({});
+    deleteItemFromCart = output<selectableProduct>({}); 
 
     constructor() {
       this.productData.set(productData);
@@ -55,6 +56,7 @@ export class ProductListComponent {
         }
         if (products[index].quantity === 0) {
           products[index].isSelected = false;
+          this.deleteItemFromCart.emit(selectedProduct);
         }
         return products;
       })

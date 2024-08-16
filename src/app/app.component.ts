@@ -11,7 +11,8 @@ import { selectableProduct } from './models/product';
     <main>
        <h1> Desserts</h1>
        <app-product-list 
-        (addItemsToCart)="addToCart($event)"/>
+        (addItemsToCart)="addToCart($event)"
+         (deleteItemFromCart)="deleteItemFromCart($event)"/>
     </main>
     <aside>
       <app-cart [itemsInCart]="addedItems()"></app-cart>
@@ -23,17 +24,18 @@ export class AppComponent {
 
   addedItems = signal<selectableProduct[]>([]);
 
-
-
   addToCart(selectedItem: selectableProduct) {
     this.addedItems.update((items) => { 
+      items.push(selectedItem);
+      return [...items];
+    });
+  }
+
+  deleteItemFromCart(selectedItem: selectableProduct) {
+    this.addedItems.update((items) => {
       const index = items.findIndex(({item}) => item.name === selectedItem.item.name);
-      if (index > -1) {
-        items[index].quantity += selectedItem.quantity;
-      } else {
-        items.push(selectedItem);
-      }
-      return items;
+      items.splice(index, 1);
+      return [...items];
     });
   }
   

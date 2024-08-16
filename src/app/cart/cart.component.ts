@@ -28,7 +28,5 @@ export class CartComponent {
   
   emptyCartImg = 'assets/images/illustration-empty-cart.svg';
 
-  constructor() {
-    console.log(this.itemsInCart());
-  }
+  constructor() {}
 }
