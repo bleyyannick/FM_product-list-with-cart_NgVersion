@@ -14,10 +14,14 @@ import { selectableProduct } from '../models/product';
           <p>{{addedItem.item.price}}</p>
           <p>{{addedItem.quantity}}</p>
 
+         
+
         } @empty {
           <img [src]="emptyCartImg" alt="empty cart">
           <p>Your added items will appear here</p>
         }
+
+        <em>Total Amount : {{ getTotalAmount() }}</em>
         
       </article>
   `,
@@ -25,8 +29,14 @@ import { selectableProduct } from '../models/product';
 })
 export class CartComponent {
   itemsInCart = input<selectableProduct[]>();
-  
+
   emptyCartImg = 'assets/images/illustration-empty-cart.svg';
 
   constructor() {}
+
+  getTotalAmount() {
+    return this.itemsInCart()?.reduce((acc, item) => {
+      return acc + item.item.price * item.quantity;
+    }, 0);
+  }
 }

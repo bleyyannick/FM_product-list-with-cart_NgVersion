@@ -1,7 +1,7 @@
 import { Component, output, signal } from '@angular/core';
 import { Product, selectableProduct } from 'src/app/models/product';
 import { ProductItemComponent } from "../product-item/product-item.component";
-import  productData  from '../../../assets/data.json'
+import productData from '../../../assets/data.json'
 
 @Component({
   selector: 'app-product-list',
@@ -19,59 +19,65 @@ import  productData  from '../../../assets/data.json'
   styleUrl: './product-list.component.css'
 })
 export class ProductListComponent {
-  
-    products = signal<selectableProduct[]>([]);
-    productData = signal<Product[]>([]);
 
-    addItemsToCart = output<selectableProduct>({});
-    deleteItemFromCart = output<selectableProduct>({}); 
+  products = signal<selectableProduct[]>([]);
+  productData = signal<Product[]>([]);
 
-    constructor() {
-      this.productData.set(productData);
-      this.products.set(this.productData().map((product) => ({
-        item: product,
-        isSelected: false,
-        quantity: 0,
-      })))
-    }
-   
-    addCart(selectedProduct: selectableProduct) {
-      this.products.update(products=>{
-        const index = products.findIndex(({item}) => item.name === selectedProduct.item.name);
-        if (index > -1) {
-          products[index].quantity++;
-          products[index].isSelected = true;
-          this.addItemsToCart.emit(selectedProduct);
-        }
-        return products;
-      })
+  addItemsToCart = output<selectableProduct>({});
+  deleteItemFromCart = output<selectableProduct>({});
 
-    }
+  constructor() {
+    this.productData.set(productData);
+    this.products.set(this.productData().map((product) => ({
+      item: product,
+      isSelected: false,
+      quantity: 0,
+    })))
+  }
 
-    decrement(selectedProduct: selectableProduct) {
-      this.products.update(products=>{
-        const index = products.findIndex(({item}) => item.name === selectedProduct.item.name);
-        if (index > -1) {
-          products[index].quantity--;
-        }
-        if (products[index].quantity === 0) {
-          products[index].isSelected = false;
-          this.deleteItemFromCart.emit(selectedProduct);
-        }
-        return products;
-      })
-    }
+  addCart(selectedProduct: selectableProduct) {
+    this.products.update(products => {
+      const index = products.findIndex(({ item }) => item.name === selectedProduct.item.name);
+      if (index > -1) {
+        products[index].quantity++;
+        products[index].isSelected = true;
+        this.addItemsToCart.emit(selectedProduct);
+      }
+      return products;
+    })
 
-    increment(selectedProduct: selectableProduct) {
-      this.products.update(products=>{
-        const index = [...products].findIndex(({item}) => item.name === selectedProduct.item.name);
-        if (index > -1) {
-          products[index].quantity++;
-          products[index].isSelected = true;
-        }
-        return products;
-      })
-    }
-   
+  }
+
+  decrement(selectedProduct: selectableProduct) {
+    this.products.update(products => {
+      const index = [...products].findIndex(({ item }) => item.name === selectedProduct.item.name);
+      if (index > -1) {
+        products[index].quantity--;
+        this.getTotalItemsAmount(products[index].quantity, products[index].item.price);
+      }
+      if (products[index].quantity === 0) {
+        products[index].isSelected = false;
+        this.deleteItemFromCart.emit(selectedProduct);
+      }
+      return products;
+    })
+  }
+
+  increment(selectedProduct: selectableProduct) {
+    this.products.update(products => {
+      const index = [...products].findIndex(({ item }) => item.name === selectedProduct.item.name);
+      if (index > -1) {
+        products[index].quantity++;
+        this.getTotalItemsAmount(products[index].quantity, products[index].item.price);
+        products[index].isSelected = true;
+      }
+      return products;
+    })
+  }
+
+  getTotalItemsAmount(qty: number, price: number) {
+    return qty * price;
+  }
+
 
 }

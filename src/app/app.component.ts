@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { ProductListComponent } from "./product/product-list/product-list.component";
 import { CartComponent } from "./cart/cart.component";
 import { selectableProduct } from './models/product';
@@ -12,17 +12,21 @@ import { selectableProduct } from './models/product';
        <h1> Desserts</h1>
        <app-product-list 
         (addItemsToCart)="addToCart($event)"
-         (deleteItemFromCart)="deleteItemFromCart($event)"/>
+        (deleteItemFromCart)="deleteItemFromCart($event)"/>
     </main>
     <aside>
       <app-cart [itemsInCart]="addedItems()"></app-cart>
+      <h3></h3>
     </aside>
   `,
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
-
   addedItems = signal<selectableProduct[]>([]);
+
+  getTotalItemAmout(item: selectableProduct) {
+    return item.item.price * item.quantity;
+  }
 
   addToCart(selectedItem: selectableProduct) {
     this.addedItems.update((items) => { 
@@ -33,7 +37,7 @@ export class AppComponent {
 
   deleteItemFromCart(selectedItem: selectableProduct) {
     this.addedItems.update((items) => {
-      const index = items.findIndex(({item}) => item.name === selectedItem.item.name);
+      const index = items.findIndex(({item}) => item.name === selectedItem.item.name); 
       items.splice(index, 1);
       return [...items];
     });
