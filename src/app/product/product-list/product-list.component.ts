@@ -37,7 +37,7 @@ export class ProductListComponent {
 
   addCart(selectedProduct: selectableProduct) {
     this.products.update(products => {
-      const index = products.findIndex(({ item }) => item.name === selectedProduct.item.name);
+      const index = [...products].findIndex(({ item }) => item.name === selectedProduct.item.name);
       if (index > -1) {
         products[index].quantity++;
         products[index].isSelected = true;
@@ -75,8 +75,8 @@ export class ProductListComponent {
     })
   }
 
-  getTotalItemsAmount(qty: number, price: number) {
-    return qty * price;
+  getTotalItemsAmount(quantity: number, price: number) {
+    return quantity * price;
   }
 
 

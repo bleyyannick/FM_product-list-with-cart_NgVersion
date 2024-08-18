@@ -26,9 +26,6 @@ import { selectableProduct } from './models/product';
 export class AppComponent {
   addedItems = signal<selectableProduct[]>([]);
 
-  getTotalItemAmout(item: selectableProduct) {
-    return item.item.price * item.quantity;
-  }
 
   addToCart(selectedItem: selectableProduct) {
     this.addedItems.update((items) => { 
