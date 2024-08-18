@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { selectableProduct } from '../models/product';
 
 @Component({
@@ -13,11 +13,12 @@ import { selectableProduct } from '../models/product';
           <h1>{{addedItem.item.name}}</h1>
           <p>{{addedItem.item.price}}</p>
           <p>{{addedItem.quantity}}</p>
+          <img (click)="removeItem(addedItem)" [src]="removeIconImg" alt="remove item">
 
          
 
         } @empty {
-          <img [src]="emptyCartImg" alt="empty cart">
+          <img  [src]="emptyCartImg" alt="empty cart">
           <p>Your added items will appear here</p>
         }
 
@@ -29,8 +30,11 @@ import { selectableProduct } from '../models/product';
 })
 export class CartComponent {
   itemsInCart = input<selectableProduct[]>();
+  onRemoveItem= output<selectableProduct>();
 
   emptyCartImg = 'assets/images/illustration-empty-cart.svg';
+  removeIconImg = 'assets/images/icon-remove-item.svg';
+
 
   constructor() {}
 
@@ -38,5 +42,13 @@ export class CartComponent {
     return this.itemsInCart()?.reduce((acc, item) => {
       return acc + item.item.price * item.quantity;
     }, 0);
+  }
+
+  removeItem(item: selectableProduct) {
+     console.log(item);
+     item.quantity = 0;
+     item.isSelected = false;
+    this.onRemoveItem.emit(item);
+    console.log(this.itemsInCart());
   }
 }

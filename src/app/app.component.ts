@@ -15,7 +15,9 @@ import { selectableProduct } from './models/product';
         (deleteItemFromCart)="deleteItemFromCart($event)"/>
     </main>
     <aside>
-      <app-cart [itemsInCart]="addedItems()"></app-cart>
+      <app-cart 
+       (onRemoveItem)="deleteItemFromCart($event)"
+       [itemsInCart]="addedItems()"/>
       <h3></h3>
     </aside>
   `,
