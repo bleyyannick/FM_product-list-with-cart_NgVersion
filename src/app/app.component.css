@@ -1,6 +1,7 @@
 
 :host {
     display: flex;
+    flex-wrap: wrap;
 }
 h1 {
     margin-bottom: 1.5rem;
@@ -8,10 +9,10 @@ h1 {
 
 main {
     width: 75%;
-    
+
 }
 aside {
-    width: 30%;
+    width: 25%;
     padding: 1rem;
     background-color: hsl(13, 31%, 94%);
 }
