@@ -24,8 +24,8 @@ import { selectableProduct } from './models/product';
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent {
+  
   addedItems = signal<selectableProduct[]>([]);
-
 
   addToCart(selectedItem: selectableProduct) {
     this.addedItems.update((items) => { 
