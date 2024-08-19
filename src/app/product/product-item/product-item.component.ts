@@ -1,10 +1,11 @@
+import { CurrencyPipe } from '@angular/common';
 import { Component, input, output } from '@angular/core';
 import { selectableProduct } from 'src/app/models/product';
 
 @Component({
   selector: 'app-product-item',
   standalone: true,
-  imports: [],
+  imports: [CurrencyPipe],
   template: `
     <article class="product-item">
       <div class="product-image">
@@ -33,7 +34,7 @@ import { selectableProduct } from 'src/app/models/product';
       <div class="product-description">
           <p> {{item().item.category}}</p>
           <p>{{item().item.name}}</p>
-          <p>{{item().item.price}}</p>
+          <p>{{ toFormatPrice(item().item.price)}}</p>
       </div>     
   </article>
   `,
@@ -59,6 +60,10 @@ export class ProductItemComponent {
 
   isSelectableProduct() {
     return this.item().isSelected;
+  }
+
+  toFormatPrice(price: number) {
+    return new CurrencyPipe('en-US').transform(price);
   }
 
 

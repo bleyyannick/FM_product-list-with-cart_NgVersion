@@ -1,7 +1,8 @@
 .cart {
     background: white; 
     width: 100%;
-    min-height: 280px;
+    min-height:250px;
+    max-height: 280px;
     padding: 1.8rem 2rem 2.3rem; 
     border-radius: 9px;
     display:flex; 

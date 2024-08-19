@@ -2,9 +2,13 @@
 :host {
     display: flex;
 }
+h1 {
+    margin-bottom: 1.5rem;
+}
 
 main {
-    width: 70%;
+    width: 75%;
+    
 }
 aside {
     width: 30%;
