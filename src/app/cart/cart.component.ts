@@ -20,10 +20,7 @@ import { selectableProduct } from '../models/product';
         } @empty {
           <img  [src]="emptyCartImg" alt="empty cart">
           <p>Your added items will appear here</p>
-        }
-
-        <em>Total Amount : {{getTotalAmount() }}</em>
-        
+        }  
       </article>
   `,
   styleUrl: './cart.component.css'
