@@ -8,6 +8,8 @@ import { selectableProduct } from './models/product';
   standalone: true,
   imports: [ProductListComponent, CartComponent],
   template: `
+    <!-- <div class="overlay">
+    </div> -->
     <main>
        <h1> Desserts</h1>
        <app-product-list 
