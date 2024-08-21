@@ -15,13 +15,26 @@ import { CartItemComponent } from "../cart-item/cart-item.component";
         } @empty {
           <img class="empty-icon"  [src]="emptyCartImg" alt="empty cart">
           <p>Your added items will appear here</p>
-        }  
+        } 
+        @if(itemsInCart().length > 0) { 
+          <div class="cart-order">
+            <div>
+              <h3>Order Total</h3>
+              <p>{{"$" + getTotalAmount()}}</p>
+            </div>
+            <div>
+              <img class="order-icon" src="assets/images/icon-carbon-neutral.svg" alt="carbon neutral icon">
+              <p>This is a <em>carbon neutral</em> delivery</p>
+            </div>
+            <button class="cart-confirm">Confirm order</button>
+          </div>
+        }
       </article>
   `,
   styleUrl: './cart.component.css'
 })
 export class CartComponent {
-  itemsInCart = input<selectableProduct[]>();
+  itemsInCart = input.required<selectableProduct[]>();
   onRemoveItem= output<selectableProduct>();
 
   emptyCartImg = 'assets/images/illustration-empty-cart.svg';
