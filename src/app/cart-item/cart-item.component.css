@@ -1,0 +1,15 @@
+
+.items {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1rem 0;
+}
+
+.remove-icon {
+    border: 1.5px solid hsl(7, 20%, 60%);
+    border-radius: 10px;
+}
+.remove-icon:hover {
+    cursor: pointer;
+}

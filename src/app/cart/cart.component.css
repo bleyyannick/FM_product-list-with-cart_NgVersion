@@ -3,16 +3,33 @@
     width: 100%;
     padding: 1rem 1.8rem 1.8rem 1.8rem;
     border-radius: 9px;
-    display:flex; 
-    flex-direction: column;
-    align-items: center;
 }
 .cart h2 {
     font-size: 1.5rem; 
     align-self: start;
     margin-bottom: 1.8rem;
 }
-.cart img {
+.cart > img {
     width: 40%;
+    display: block;
+    margin: auto;
     margin-bottom: 1rem;
+}
+
+
+/* ITEMS */
+
+.items {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 1rem 0;
+}
+
+.remove-icon {
+    border: 1.5px solid hsl(7, 20%, 60%);
+    border-radius: 10px;
+}
+.remove-icon:hover {
+    cursor: pointer;
 }

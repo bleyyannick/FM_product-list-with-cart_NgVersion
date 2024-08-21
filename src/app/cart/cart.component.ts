@@ -1,24 +1,19 @@
 import { Component, input, output } from '@angular/core';
 import { selectableProduct } from '../models/product';
+import { CartItemComponent } from "../cart-item/cart-item.component";
 
 @Component({
   selector: 'app-cart',
   standalone: true,
-  imports: [],
+  imports: [CartItemComponent],
   template: `
       <article class="cart">
         <h2>Your cart({{getTotalQuantity()}})</h2>
         
         @for( addedItem of itemsInCart(); track addedItem.item.name) {
-          <h1>{{addedItem.item.name}}</h1>
-          <p>{{addedItem.item.price}}</p>
-          <p>{{addedItem.quantity}}</p>
-          <img (click)="removeItem(addedItem)" [src]="removeIconImg" alt="remove item">
-
-         
-
+          <app-cart-item [cartItem]="addedItem" (onRemove)="removeItem($event)" />
         } @empty {
-          <img  [src]="emptyCartImg" alt="empty cart">
+          <img class="empty-icon"  [src]="emptyCartImg" alt="empty cart">
           <p>Your added items will appear here</p>
         }  
       </article>
@@ -30,9 +25,7 @@ export class CartComponent {
   onRemoveItem= output<selectableProduct>();
 
   emptyCartImg = 'assets/images/illustration-empty-cart.svg';
-  removeIconImg = 'assets/images/icon-remove-item.svg';
-
-
+  
   constructor() {}
 
   getTotalAmount() {
@@ -47,10 +40,6 @@ export class CartComponent {
 }
 
   removeItem(item: selectableProduct) {
-     console.log(item);
-     item.quantity = 0;
-     item.isSelected = false;
     this.onRemoveItem.emit(item);
-    console.log(this.itemsInCart());
   }
 }
