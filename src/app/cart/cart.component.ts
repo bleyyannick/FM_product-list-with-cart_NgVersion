@@ -26,7 +26,7 @@ import { CartItemComponent } from "../cart-item/cart-item.component";
               <img class="order-icon" src="assets/images/icon-carbon-neutral.svg" alt="carbon neutral icon">
               <p>This is a <em>carbon neutral</em> delivery</p>
             </div>
-            <button (click)="confirmOrder($event)" class="cart-confirm">Confirm order</button>
+            <button (click)="confirmOrder($event)" class="cart-confirm">{{ buttonMessage() }}</button>
           </div>
         }
       </article>
@@ -37,6 +37,7 @@ export class CartComponent {
   itemsInCart = input.required<selectableProduct[]>();
   onRemoveItem= output<selectableProduct>();
   onConfirmOrder = output<boolean>();
+  orderedCart = input.required<boolean>();
 
   emptyCartImg = 'assets/images/illustration-empty-cart.svg';
   
@@ -60,5 +61,9 @@ export class CartComponent {
   confirmOrder(event: Event) {
     event.preventDefault();
     this.onConfirmOrder.emit(true);
+  }
+
+  buttonMessage() {
+    return this.orderedCart() ? 'start new order' : 'Confirm order';
   }
 }

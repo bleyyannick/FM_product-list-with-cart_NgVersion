@@ -10,7 +10,9 @@ import { selectableProduct } from './models/product';
   template: `
   @if (isConfirmed()) {
     <div class="overlay">
-      <app-cart [itemsInCart]="addedItems()" />
+      <app-cart 
+       [orderedCart]="isConfirmed()" 
+       [itemsInCart]="addedItems()" />
    </div>
   }
     <main>
@@ -23,7 +25,8 @@ import { selectableProduct } from './models/product';
       <app-cart 
        (onConfirmOrder)="order($event)"
        (onRemoveItem)="deleteItemFromCart($event)"
-       [itemsInCart]="addedItems()"/>
+       [itemsInCart]="addedItems()"
+       [orderedCart]="isConfirmed()"/>
       <h3></h3>
     </aside>
   `,
