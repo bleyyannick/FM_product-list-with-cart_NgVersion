@@ -2,17 +2,16 @@ import { Component, signal } from '@angular/core';
 import { ProductListComponent } from "./product/product-list/product-list.component";
 import { CartComponent } from "./cart/cart.component";
 import { selectableProduct } from './models/product';
+import { ModalOrderComponent } from "./modal-order/modal-order.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ProductListComponent, CartComponent],
+  imports: [ProductListComponent, CartComponent, ModalOrderComponent],
   template: `
   @if (isConfirmed()) {
     <div class="overlay">
-      <app-cart 
-       [orderedCart]="isConfirmed()" 
-       [itemsInCart]="addedItems()" />
+      <app-modal-order [orderedItems]="addedItems()" />
    </div>
   }
     <main>
