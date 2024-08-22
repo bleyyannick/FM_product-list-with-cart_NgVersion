@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { selectableProduct } from '../models/product';
 
 @Component({
@@ -7,28 +7,33 @@ import { selectableProduct } from '../models/product';
   imports: [],
   template: `
   <div class="modal">
-    <div class="modal-message">
-       <img src="assets/images/icon-order-confirmed.svg" alt="check icon">
-       <h2>Order Confirmed</h2>
-       <p>We hope you enjour your food</p>
-    </div>
-
-    <div class="modal-items">
-      <ul>
-        @for( item of orderedItems(); track item.item.name) {
-          <li>
-            <img [src]="getImagePath(item.item.category)" [alt]="'assets/images/image-' + item.item.category.toLowerCase().split('-') + '-mobile.jpg'">
-            <div>
-              <h3>{{item.item.name}}</h3>
-            </div>
-            <p>{{"$" + item.item.price}}</p>
-        </li>
-        }
-      </ul>
-    </div>
-    <div>
-    </div>
-
+      <div class="modal-message">
+        <img src="assets/images/icon-order-confirmed.svg" alt="check icon">
+        <h2>Order Confirmed</h2>
+        <p>We hope you enjour your food</p>
+      </div>
+      <div class="modal-items">
+        <ul>
+          @for( item of orderedItems(); track item.item.name) {
+            <li>
+              <img [src]="getImagePath(item.item.category)" [alt]="'assets/images/image-' + item.item.category.toLowerCase().split('-') + '-mobile.jpg'">
+                <div>
+                  <h3>{{item.item.name}}</h3>
+                    <span>{{item.quantity}}x </span>
+                    <span>{{"@ $" + item.item.price}}</span>
+                </div>
+                <p>{{"$" + item.item.price}}</p>
+            </li>
+              }
+          </ul>
+        <div>
+          <p>Order total</p>
+          <p>{{"$" + getTotal()}}</p>
+        </div>
+      </div>
+      <button (click)="startNewOrder()"> Start new order</button>
+  <div>
+  </div>
   </div>
   `,
   styleUrl: './modal-order.component.css'
@@ -36,24 +41,24 @@ import { selectableProduct } from '../models/product';
 export class ModalOrderComponent {
 
   orderedItems = input.required<selectableProduct[]>();
-
-
-  ngOnInit() {
-
-  }
-
+  onOrderNew = output<boolean>();
 
   getImagePath(category: string) {
-    
     const formattedCategory= category.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().split(" ").join('-');
     if(category === 'Pie') {
       return 'assets/images/image-meringue-mobile.jpg';
     }
-    return 'assets/images/image-' + formattedCategory + '-mobile.jpg';
+    return 'assets/images/image-' + formattedCategory + '-mobile.jpg'; 
+  }
 
-   
+  getTotal() {
+    return this.orderedItems().reduce((acc, {item: {price}, quantity}) => {
+      return acc + (price * quantity);
+    }, 0);
+  }
 
-    
+  startNewOrder() {
+    this.onOrderNew.emit(false);
   }
 
 }

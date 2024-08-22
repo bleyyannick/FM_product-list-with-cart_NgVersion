@@ -11,7 +11,7 @@ import { ModalOrderComponent } from "./modal-order/modal-order.component";
   template: `
   @if (isConfirmed()) {
     <div class="overlay">
-      <app-modal-order [orderedItems]="addedItems()" />
+      <app-modal-order (onOrderNew)="resetOrder($event)" [orderedItems]="addedItems()" />
    </div>
   }
     <main>
@@ -53,6 +53,19 @@ export class AppComponent {
 
   order(isOrdering: boolean) {
     this.isConfirmed.update(() => isOrdering);
+  }
+
+  resetOrder(isOrdered: boolean) {
+    this.isConfirmed.update(() => isOrdered);
+    this.addedItems.update((items)=> {
+      items.map((item) => {
+        item.quantity = 0
+        item.isSelected = isOrdered
+      })
+      items.splice(0, items.length);
+      return [...items];
+      
+    });
   }
   
 }
