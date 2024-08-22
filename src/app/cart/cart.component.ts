@@ -26,7 +26,7 @@ import { CartItemComponent } from "../cart-item/cart-item.component";
               <img class="order-icon" src="assets/images/icon-carbon-neutral.svg" alt="carbon neutral icon">
               <p>This is a <em>carbon neutral</em> delivery</p>
             </div>
-            <button class="cart-confirm">Confirm order</button>
+            <button (click)="confirmOrder($event)" class="cart-confirm">Confirm order</button>
           </div>
         }
       </article>
@@ -36,6 +36,7 @@ import { CartItemComponent } from "../cart-item/cart-item.component";
 export class CartComponent {
   itemsInCart = input.required<selectableProduct[]>();
   onRemoveItem= output<selectableProduct>();
+  onConfirmOrder = output<boolean>();
 
   emptyCartImg = 'assets/images/illustration-empty-cart.svg';
   
@@ -54,5 +55,10 @@ export class CartComponent {
 
   removeItem(item: selectableProduct) {
     this.onRemoveItem.emit(item);
+  }
+
+  confirmOrder(event: Event) {
+    event.preventDefault();
+    this.onConfirmOrder.emit(true);
   }
 }

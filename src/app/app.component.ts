@@ -8,8 +8,11 @@ import { selectableProduct } from './models/product';
   standalone: true,
   imports: [ProductListComponent, CartComponent],
   template: `
-    <!-- <div class="overlay">
-    </div> -->
+  @if (isConfirmed()) {
+    <div class="overlay">
+      <app-cart [itemsInCart]="addedItems()" />
+   </div>
+  }
     <main>
        <h1> Desserts</h1>
        <app-product-list 
@@ -18,6 +21,7 @@ import { selectableProduct } from './models/product';
     </main>
     <aside>
       <app-cart 
+       (onConfirmOrder)="order($event)"
        (onRemoveItem)="deleteItemFromCart($event)"
        [itemsInCart]="addedItems()"/>
       <h3></h3>
@@ -28,6 +32,7 @@ import { selectableProduct } from './models/product';
 export class AppComponent {
   
   addedItems = signal<selectableProduct[]>([]);
+  isConfirmed = signal<boolean>(false);
 
   addToCart(selectedItem: selectableProduct) {
     this.addedItems.update((items) => { 
@@ -42,6 +47,10 @@ export class AppComponent {
       items.splice(index, 1);
       return [...items];
     });
+  }
+
+  order(isOrdering: boolean) {
+    this.isConfirmed.update(() => isOrdering);
   }
   
 }
