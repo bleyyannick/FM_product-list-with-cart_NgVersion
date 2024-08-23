@@ -15,18 +15,22 @@ import { selectableProduct } from '../models/product';
       <div class="modal-items">
         <ul>
           @for( item of orderedItems(); track item.item.name) {
-            <li>
+          <li>
+            <div>
               <img [src]="getImagePath(item.item.category)" [alt]="'assets/images/image-' + item.item.category.toLowerCase().split('-') + '-mobile.jpg'">
                 <div>
                   <h3>{{item.item.name}}</h3>
+                  <div>
                     <span>{{item.quantity}}x </span>
                     <span>{{"@ $" + item.item.price}}</span>
+                  </div>
                 </div>
-                <p>{{"$" + item.item.price}}</p>
+              </div>
+              <p>{{"$" + item.item.price}}</p>
             </li>
               }
           </ul>
-        <div>
+        <div class="modal-order">
           <p>Order total</p>
           <p>{{"$" + getTotal()}}</p>
         </div>
