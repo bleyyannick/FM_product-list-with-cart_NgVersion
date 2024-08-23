@@ -26,7 +26,7 @@ import { selectableProduct } from '../models/product';
                   </div>
                 </div>
               </div>
-              <p>{{"$" + item.item.price}}</p>
+              <p class="modal-items-price">{{"$" + item.item.price}}</p>
             </li>
               }
           </ul>

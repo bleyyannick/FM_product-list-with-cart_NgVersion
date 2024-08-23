@@ -2,11 +2,22 @@
    background-color: hsl(13, 31%, 94%);
     padding: 1rem;
     width: 350px;
+    border-radius: 10px;
+}
+
+.modal-message {
+    margin-bottom: 1rem;
+}
+
+.modal-message p {
+    color: hsl(12, 20%, 44%);
+    font-size: .8rem;
 }
 
 .modal-items {
     background-color: hsl(14, 25%, 72%);
     padding: .7rem;
+    border-radius: 6px;
 }
 
 .modal-items ul {
@@ -17,7 +28,8 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin: 1rem 0;
+    padding: 1rem 0;
+    border-bottom: 1px solid maroon;
 }
 
 .modal-items ul li h3 {
@@ -40,10 +52,36 @@
     display: flex;
     justify-content: space-between;
     flex-direction: column;
+    font-size: .8rem;
 }
 
+
 .modal-order {
-    margin: 1rem 0;
+  margin: 1rem 0;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+}
+
+.modal-order > p {
+    font-size: .8rem;
+}
+.modal-order > p:nth-child(2) {
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.modal-items-price {
+    font-weight: 800;
+}
+
+.modal button {
+    width: 100%;
+  padding: .8rem;
+  margin: 1rem 0;
+  border-radius: 30px;
+  border: none;
+  background: maroon;
+  color: white;
+  font-weight: 600;
 }
