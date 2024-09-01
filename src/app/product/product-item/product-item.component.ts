@@ -11,7 +11,7 @@ import { selectableProduct } from 'src/app/models/product';
       <div class="product-image">
           <img 
            [src]="item().item.image.desktop" 
-           alt="{{item().item.name}}"
+            alt="{{item().item.name}}"
            [class]="{
             'isSelected': isSelectableProduct(),
            }">

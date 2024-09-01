@@ -16,7 +16,7 @@ import { selectableProduct } from '../models/product';
         <div>
            <img class="remove-icon" (click)="remove(cartItem())" [src]="removeIconImg" alt="remove item">
         </div>
-      </div>
+    </div>
   
   `,
   styleUrl: './cart-item.component.css'
@@ -27,8 +27,7 @@ export class CartItemComponent {
 
   cartItem = input.required<selectableProduct>();
   onRemove = output<selectableProduct>();
-
-
+  
   remove(item: selectableProduct) {
     item.quantity = 0;
     item.isSelected = false;

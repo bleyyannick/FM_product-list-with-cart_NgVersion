@@ -25,9 +25,9 @@ import { selectableProduct } from '../models/product';
                     <span>{{"@ $" + item.item.price}}</span>
                   </div>
                 </div>
-              </div>
+            </div>
               <p class="modal-items-price">{{"$" + item.item.price}}</p>
-            </li>
+          </li>
               }
           </ul>
         <div class="modal-order">
@@ -36,8 +36,6 @@ import { selectableProduct } from '../models/product';
         </div>
       </div>
       <button (click)="startNewOrder()"> Start new order</button>
-  <div>
-  </div>
   </div>
   `,
   styleUrl: './modal-order.component.css'
