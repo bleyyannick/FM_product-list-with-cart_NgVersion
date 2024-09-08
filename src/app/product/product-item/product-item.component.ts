@@ -21,11 +21,11 @@ import { selectableProduct } from 'src/app/models/product';
                 'selected-product': isSelectableProduct(),
               }">
             @if (isSelectableProduct()) {
-               <img class="icon-decrement" (click)="decrement()"  src="assets/images/icon-decrement-quantity.svg" alt="decrement product quantity" />
+               <img class="icon-decrement" (click)="updateCart('decrement')"  src="assets/images/icon-decrement-quantity.svg" alt="decrement product quantity" />
                  <p class="product-quantity">{{item().quantity}}</p>
-               <img class="icon-increment" (click)="increment()"  src="assets/images/icon-increment-quantity.svg" alt="increment product quantity" />
+               <img class="icon-increment" (click)="updateCart('increment')"  src="assets/images/icon-increment-quantity.svg" alt="increment product quantity" />
             } @else {
-              <img (click)="addCart()" class="icon-cart" src="assets/images/icon-add-to-cart.svg" alt="Add to cart" />
+              <img (click)="updateCart('add')" class="icon-cart" src="assets/images/icon-add-to-cart.svg" alt="Add to cart" />
               Add to cart
             }
            
@@ -45,17 +45,13 @@ export class ProductItemComponent {
   onAddCart = output<selectableProduct>();
   onIncrement = output<selectableProduct>();
   onDecrement = output<selectableProduct>();
-
-  addCart() {
-    this.onAddCart.emit(this.item());
-  }
-  
-  increment() {
-    this.onIncrement.emit(this.item());
-  }
-
-  decrement() {
-    this.onDecrement.emit(this.item());
+  updateCart(action: 'add' | 'increment' | 'decrement') {
+    const eventMap = {
+      'add': this.onAddCart,
+      'increment': this.onIncrement,
+      'decrement': this.onDecrement
+    };
+    eventMap[action].emit(this.item());
   }
 
   isSelectableProduct() {
@@ -65,7 +61,5 @@ export class ProductItemComponent {
   toFormatPrice(price: number) {
     return new CurrencyPipe('en-US').transform(price);
   }
-
-
 
 }

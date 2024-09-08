@@ -37,26 +37,25 @@ export class AppComponent {
   isConfirmed = signal<boolean>(false);
 
   addToCart(selectedItem: selectableProduct) {
-    this.addedItems.update((items) => { 
-      items.push(selectedItem);
-      return [...items];
-    });
+    this.addedItems.update(items => [...items, selectedItem]);
   }
 
   deleteItemFromCart(selectedItem: selectableProduct) {
     this.addedItems.update((items) => {
-      const index = items.findIndex(({item}) => item.name === selectedItem.item.name); 
-      items.splice(index, 1);
-      return [...items];
+      const index = items.findIndex(({item}) => item.name === selectedItem.item.name);
+      if (index !== -1) {
+        return [...items.slice(0, index), ...items.slice(index + 1)];
+      }
+      return items;
     });
   }
 
   order(isOrdering: boolean) {
-    this.isConfirmed.update(() => isOrdering);
+    this.isConfirmed.set(isOrdering);
   }
 
   resetOrder(isOrdered: boolean) {
-    this.isConfirmed.update(() => isOrdered);
+    this.isConfirmed.set(isOrdered);
     this.addedItems.update((items)=> {
       items.map((item) => {
         item.quantity = 0

@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, computed, input, output } from '@angular/core';
 import { selectableProduct } from '../models/product';
 import { CartItemComponent } from "../cart-item/cart-item.component";
 
@@ -40,19 +40,13 @@ export class CartComponent {
   orderedCart = input.required<boolean>();
 
   emptyCartImg = 'assets/images/illustration-empty-cart.svg';
-  
-  constructor() {}
 
-  getTotalAmount() {
-    return this.itemsInCart()?.reduce((acc, {item: {price}, quantity}) => {
-      return acc + price * quantity;
-    }, 0);
-  }
-  getTotalQuantity() {
-    return this.itemsInCart()?.reduce((acc, {quantity}) => {
-      return acc + quantity;
-  }, 0);
-}
+  getTotalAmount = computed(() =>
+    this.itemsInCart().reduce((acc, {item: {price}, quantity}) =>  
+     acc + price * quantity, 0));
+
+  getTotalQuantity = computed(() =>
+    this.itemsInCart()?.reduce((acc, {quantity}) => acc + quantity, 0));
 
   removeItem(item: selectableProduct) {
     this.onRemoveItem.emit(item);
