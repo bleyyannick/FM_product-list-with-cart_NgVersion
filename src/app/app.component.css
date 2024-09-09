@@ -28,3 +28,26 @@ aside {
     margin-left: 2rem;
     min-width: 330px;
 }
+
+@media (max-width: 1024px) and (min-width: 480px) {
+    main {
+        width: 100%;
+    }
+    aside {
+        width: 100%;
+        margin:0;
+        min-width: 0;
+    }
+}
+
+
+@media (max-width: 375px) {
+    main {
+        width: 100%;
+    }
+    aside {
+        width: 100%;
+        margin:0;
+        min-width: 0;
+    }
+}

@@ -56,3 +56,12 @@
 .cart-order button:hover {
     cursor: pointer;
 }
+
+
+@media (max-width: 375px) {
+    .cart {
+        padding: 1rem;
+        width: 100%;
+        margin: 0;
+    }
+}

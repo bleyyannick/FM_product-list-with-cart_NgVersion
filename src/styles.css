@@ -13,3 +13,11 @@ html, body {
 body {
   padding: 3rem; 
 }
+
+
+
+  @media (max-width: 375px) {
+    body {
+      padding: 1.2rem;
+    }
+  }

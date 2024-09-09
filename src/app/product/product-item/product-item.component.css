@@ -70,3 +70,9 @@ img:hover {
     color: hsl(7, 20%, 60%);
     font-weight: 700;
 }
+
+@media (max-width: 375px) {
+    .product-item {
+        width: 100%;
+    }
+}
