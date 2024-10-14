@@ -41,12 +41,15 @@ export class CartComponent {
 
   emptyCartImg = 'assets/images/illustration-empty-cart.svg';
 
-  getTotalAmount = computed(() =>
-    this.itemsInCart().reduce((acc, {item: {price}, quantity}) =>  
-     acc + price * quantity, 0));
-
-  getTotalQuantity = computed(() =>
-    this.itemsInCart()?.reduce((acc, {quantity}) => acc + quantity, 0));
+  getTotalAmount () {
+   return this.itemsInCart().reduce((acc, {item: {price}, quantity}) =>  
+      acc + price * quantity, 0)
+  }
+  
+  getTotalQuantity () {
+    return this.itemsInCart()?.reduce((acc, {quantity}) => acc + quantity, 0);
+  }
+    
 
   removeItem(item: selectableProduct) {
     this.onRemoveItem.emit(item);

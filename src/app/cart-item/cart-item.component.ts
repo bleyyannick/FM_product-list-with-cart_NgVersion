@@ -16,7 +16,7 @@ import { selectableProduct } from '../models/product';
         <div>
            <img class="remove-icon" (click)="remove(cartItem())" [src]="removeIconImg" alt="remove item">
         </div>
-    </div>
+     </div>
   
   `,
   styleUrl: './cart-item.component.css'
