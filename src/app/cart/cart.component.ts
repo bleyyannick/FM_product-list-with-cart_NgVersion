@@ -1,4 +1,4 @@
-import { Component, computed, input, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { selectableProduct } from '../models/product';
 import { CartItemComponent } from "../cart-item/cart-item.component";
 
@@ -45,7 +45,7 @@ export class CartComponent {
    return this.itemsInCart().reduce((acc, {item: {price}, quantity}) =>  
       acc + price * quantity, 0)
   }
-  
+
   getTotalQuantity () {
     return this.itemsInCart()?.reduce((acc, {quantity}) => acc + quantity, 0);
   }

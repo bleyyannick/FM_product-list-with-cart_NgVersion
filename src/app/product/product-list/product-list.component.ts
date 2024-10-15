@@ -1,4 +1,4 @@
-import { Component, computed, output, signal } from '@angular/core';
+import { Component, output, signal } from '@angular/core';
 import { Product, selectableProduct } from 'src/app/models/product';
 import { ProductItemComponent } from "../product-item/product-item.component";
 import productData from '../../../assets/data.json'

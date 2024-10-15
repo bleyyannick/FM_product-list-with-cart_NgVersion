@@ -6,15 +6,15 @@ import { selectableProduct } from '../models/product';
   standalone: true,
   imports: [],
   template: `
-     <div class="items">
+     <div class="item">
         <div>
           <h4>{{cartItem().item.name}}</h4>
-          <span>{{cartItem().quantity + "x"}}</span>
-          <span> {{ "@ $" + cartItem().item.price}}</span>
-          <span>{{ "$" +cartItem().item.price * cartItem().quantity}}</span>
+          <span class="item-quantity">{{cartItem().quantity + "x"}}</span>
+          <span class="item-price"> {{ "@ $" + cartItem().item.price}}</span>
+          <span class="item-total-price">{{ "$" +cartItem().item.price * cartItem().quantity}}</span>
         </div>
         <div>
-           <img class="remove-icon" (click)="remove(cartItem())" [src]="removeIconImg" alt="remove item">
+           <img class="remove-icon" (click)="remove(cartItem())" [src]="removeIconImg" alt="Icon for removing an item">
         </div>
      </div>
   
