@@ -53,7 +53,6 @@ export class ProductListComponent {
       const index = [...products].findIndex(({ item }) => item.name === selectedProduct.item.name);
       if (index > -1) {
         products[index].quantity--;
-        this.getTotalItemsAmount(products[index].quantity, products[index].item.price);
       }
       if (products[index].quantity === 0) {
         products[index].isSelected = false;
@@ -68,15 +67,9 @@ export class ProductListComponent {
       const index = [...products].findIndex(({ item }) => item.name === selectedProduct.item.name);
       if (index > -1) {
         products[index].quantity++;
-        this.getTotalItemsAmount(products[index].quantity, products[index].item.price);
         products[index].isSelected = true;
       }
       return products;
     })
   }
-
-  getTotalItemsAmount(quantity: number, price: number) {
-    return quantity * price;
-  }
-
 }
