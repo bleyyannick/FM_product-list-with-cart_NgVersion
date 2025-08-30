@@ -35,19 +35,24 @@ export class AppComponent {
   
   addedItems = signal<selectableProduct[]>([]);
   isConfirmed = signal<boolean>(false);
+  productList= signal<selectableProduct[]>([]);
 
   addToCart(selectedItem: selectableProduct) {
     this.addedItems.update(items => [...items, selectedItem]);
   }
 
   deleteItemFromCart(selectedItem: selectableProduct) {
-    this.addedItems.update((items) => {
-      const index = items.findIndex(({item}) => item.name === selectedItem.item.name);
-      if (index !== -1) {
-        return [...items.slice(0, index), ...items.slice(index + 1)];
-      }
-      return items;
-    });
+  // Supprime du panier
+  this.addedItems.update(items =>
+    items.filter(p => p.item.name !== selectedItem.item.name)
+  );
+  this.productList.update(products =>
+      products.map(p =>
+        p.item.name === selectedItem.item.name
+          ? { ...p, quantity: 0, isSelected: false }
+          : p
+      )
+    );
   }
 
   order(isOrdering: boolean) {
