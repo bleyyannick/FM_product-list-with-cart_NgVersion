@@ -20,7 +20,7 @@ import { CartService } from './services/Cart.service';
        <h1> Desserts</h1>
        <app-product-list 
         (addItemsToCart)="addToCart($event)"
-        (updateItemInCart)="updateCart($event)"
+        (updateItemInCart)="addToCart($event)"
         (deleteItemFromCart)="deleteItemFromCart($event)"/>
     </main>
     <aside>
@@ -38,10 +38,6 @@ export class AppComponent {
   cartService = inject(CartService);
 
   addToCart(selectedItem: selectableProduct) {
-    this.cartService.addItem(selectedItem);
-  }
-
-  updateCart(selectedItem: selectableProduct) {
     this.cartService.addItem(selectedItem);
   }
 
