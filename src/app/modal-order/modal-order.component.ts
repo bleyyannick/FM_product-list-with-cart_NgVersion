@@ -2,10 +2,10 @@ import { Component, input, output } from '@angular/core';
 import { selectableProduct } from '../models/product';
 
 @Component({
-  selector: 'app-modal-order',
-  standalone: true,
-  imports: [],
-  template: `
+    selector: 'app-modal-order',
+    standalone: true,
+    imports: [],
+    template: `
   <div class="modal">
       <div class="modal-message">
         <img src="assets/images/icon-order-confirmed.svg" alt="check icon">
@@ -38,7 +38,7 @@ import { selectableProduct } from '../models/product';
       <button (click)="startNewOrder()"> Start new order</button>
   </div>
   `,
-  styleUrl: './modal-order.component.css'
+    styleUrl: './modal-order.component.css'
 })
 export class ModalOrderComponent {
 

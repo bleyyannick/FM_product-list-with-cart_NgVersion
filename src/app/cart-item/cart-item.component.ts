@@ -2,10 +2,10 @@ import { Component, input, output } from '@angular/core';
 import { selectableProduct } from '../models/product';
 
 @Component({
-  selector: 'app-cart-item',
-  standalone: true,
-  imports: [],
-  template: `
+    selector: 'app-cart-item',
+    standalone: true,
+    imports: [],
+    template: `
      <div class="item">
         <div>
           <h4>{{cartItem().item.name}}</h4>
@@ -19,7 +19,7 @@ import { selectableProduct } from '../models/product';
      </div>
   
   `,
-  styleUrl: './cart-item.component.css'
+    styleUrl: './cart-item.component.css'
 })
 export class CartItemComponent {
 

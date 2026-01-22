@@ -4,10 +4,10 @@ import { ProductItemComponent } from "../product-item/product-item.component";
 import { ProductService } from '../../services/Product.service';
 
 @Component({
-  selector: 'app-product-list',
-  standalone: true,
-  imports: [ProductItemComponent],
-  template: `
+    selector: 'app-product-list',
+    standalone: true,
+    imports: [ProductItemComponent],
+    template: `
   @for (product of productService.products(); track product.item.name) {
     <app-product-item 
      [item]="product"
@@ -16,7 +16,7 @@ import { ProductService } from '../../services/Product.service';
      (onIncrement)="increment($event)">
     </app-product-item>
   }`,
-  styleUrl: './product-list.component.css'
+    styleUrls: ['./product-list.component.css']
 })
 export class ProductListComponent {
 
