@@ -1,6 +1,7 @@
-import { Component, input, output } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { selectableProduct } from '../models/product';
 import { CartItemComponent } from "../cart-item/cart-item.component";
+import { CartService } from '../services/Cart.service';
 
 @Component({
   selector: 'app-cart',
@@ -8,25 +9,25 @@ import { CartItemComponent } from "../cart-item/cart-item.component";
   imports: [CartItemComponent],
   template: `
       <article class="cart">
-        <h2>Your cart({{getTotalQuantity()}})</h2>
+        <h2>Your cart({{cartService.totalQuantity()}})</h2>
         
-        @for( addedItem of itemsInCart(); track addedItem.item.name) {
+        @for( addedItem of cartService.items(); track addedItem.item.name) {
           <app-cart-item [cartItem]="addedItem" (onRemove)="removeItem($event)" />
         } @empty {
           <img class="empty-icon"  [src]="emptyCartImg" alt="empty cart">
           <p>Your added items will appear here</p>
         } 
-        @if(itemsInCart().length > 0) { 
+        @if(!cartService.isEmpty()) { 
           <div class="cart-order">
             <div>
               <h3>Order Total</h3>
-              <p>{{"$" + getTotalAmount()}}</p>
+              <p>{{"$" + cartService.totalAmount()}}</p>
             </div>
             <div>
               <img class="order-icon" src="assets/images/icon-carbon-neutral.svg" alt="carbon neutral icon">
               <p>This is a <em>carbon neutral</em> delivery</p>
             </div>
-            <button (click)="confirmOrder($event)" class="cart-confirm">{{ buttonMessage() }}</button>
+            <button (click)="confirmOrder($event)" class="cart-confirm">{{ cartService.getButtonMessage() }}</button>
           </div>
         }
       </article>
@@ -34,22 +35,11 @@ import { CartItemComponent } from "../cart-item/cart-item.component";
   styleUrl: './cart.component.css'
 })
 export class CartComponent {
-  itemsInCart = input.required<selectableProduct[]>();
-  onRemoveItem= output<selectableProduct>();
+  cartService = inject(CartService);
+  onRemoveItem = output<selectableProduct>();
   onConfirmOrder = output<boolean>();
-  orderedCart = input.required<boolean>();
 
   emptyCartImg = 'assets/images/illustration-empty-cart.svg';
-
-  getTotalAmount () {
-   return this.itemsInCart().reduce((acc, {item: {price}, quantity}) =>  
-      acc + price * quantity, 0)
-  }
-
-  getTotalQuantity () {
-    return this.itemsInCart()?.reduce((acc, {quantity}) => acc + quantity, 0);
-  }
-    
 
   removeItem(item: selectableProduct) {
     this.onRemoveItem.emit(item);
@@ -58,9 +48,5 @@ export class CartComponent {
   confirmOrder(event: Event) {
     event.preventDefault();
     this.onConfirmOrder.emit(true);
-  }
-
-  buttonMessage() {
-    return this.orderedCart() ? 'start new order' : 'Confirm order';
   }
 }

@@ -5,7 +5,6 @@ import { selectableProduct } from 'src/app/models/product';
 @Component({
   selector: 'app-product-item',
   standalone: true,
-  imports: [CurrencyPipe],
   template: `
     <article class="product-item">
       <div class="product-image">

@@ -1,17 +1,19 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ProductListComponent } from "./product/product-list/product-list.component";
 import { CartComponent } from "./cart/cart.component";
 import { selectableProduct } from './models/product';
 import { ModalOrderComponent } from "./modal-order/modal-order.component";
+import { ProductService } from './services/Product.service';
+import { CartService } from './services/Cart.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [ProductListComponent, CartComponent, ModalOrderComponent],
   template: `
-  @if (isConfirmed()) {
+  @if (cartService.orderConfirmed()) {
     <div class="overlay">
-      <app-modal-order (onOrderNew)="resetOrder($event)" [orderedItems]="addedItems()" />
+      <app-modal-order (onOrderNew)="resetOrder($event)" [orderedItems]="cartService.items()" />
    </div>
   }
     <main>
@@ -23,9 +25,7 @@ import { ModalOrderComponent } from "./modal-order/modal-order.component";
     <aside>
       <app-cart 
        (onConfirmOrder)="order($event)"
-       (onRemoveItem)="deleteItemFromCart($event)"
-       [itemsInCart]="addedItems()"
-       [orderedCart]="isConfirmed()"/>
+       (onRemoveItem)="deleteItemFromCart($event)"/>
       <h3></h3>
     </aside>
   `,
@@ -33,43 +33,29 @@ import { ModalOrderComponent } from "./modal-order/modal-order.component";
 })
 export class AppComponent {
   
-  addedItems = signal<selectableProduct[]>([]);
-  isConfirmed = signal<boolean>(false);
-  productList= signal<selectableProduct[]>([]);
+  productService = inject(ProductService);
+  cartService = inject(CartService);
 
   addToCart(selectedItem: selectableProduct) {
-    this.addedItems.update(items => [...items, selectedItem]);
+    this.cartService.addItem(selectedItem);
   }
 
   deleteItemFromCart(selectedItem: selectableProduct) {
-  // Supprime du panier
-  this.addedItems.update(items =>
-    items.filter(p => p.item.name !== selectedItem.item.name)
-  );
-  this.productList.update(products =>
-      products.map(p =>
-        p.item.name === selectedItem.item.name
-          ? { ...p, quantity: 0, isSelected: false }
-          : p
-      )
-    );
+    // Supprime du panier
+    this.cartService.removeItem(selectedItem.item.name);
+    // Réinitialise le produit dans le service
+    this.productService.resetProduct(selectedItem.item.name);
   }
 
   order(isOrdering: boolean) {
-    this.isConfirmed.set(isOrdering);
+    this.cartService.confirmOrder();
   }
 
   resetOrder(isOrdered: boolean) {
-    this.isConfirmed.set(isOrdered);
-    this.addedItems.update((items)=> {
-      items.map((item) => {
-        item.quantity = 0
-        item.isSelected = isOrdered
-      })
-      items.splice(0, items.length);
-      return [...items];
-      
-    });
+    // Réinitialise la commande et le panier
+    this.cartService.resetOrder();
+    // Réinitialise tous les produits
+    this.productService.resetAllProducts();
   }
   
 }
