@@ -4,10 +4,10 @@ import { CartItemComponent } from "../cart-item/cart-item.component";
 import { CartService } from '../services/Cart.service';
 
 @Component({
-  selector: 'app-cart',
-  standalone: true,
-  imports: [CartItemComponent],
-  template: `
+    selector: 'app-cart',
+    standalone: true,
+    imports: [CartItemComponent],
+    template: `
       <article class="cart">
         <h2>Your cart({{cartService.totalQuantity()}})</h2>
         
@@ -32,7 +32,7 @@ import { CartService } from '../services/Cart.service';
         }
       </article>
   `,
-  styleUrl: './cart.component.css'
+    styleUrls: ['./cart.component.css']
 })
 export class CartComponent {
   cartService = inject(CartService);

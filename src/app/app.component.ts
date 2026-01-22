@@ -7,10 +7,10 @@ import { ProductService } from './services/Product.service';
 import { CartService } from './services/Cart.service';
 
 @Component({
-  selector: 'app-root',
-  standalone: true,
-  imports: [ProductListComponent, CartComponent, ModalOrderComponent],
-  template: `
+    selector: 'app-root',
+    standalone: true,
+    imports: [ProductListComponent, CartComponent, ModalOrderComponent],
+    template: `
   @if (cartService.orderConfirmed()) {
     <div class="overlay">
       <app-modal-order (onOrderNew)="resetOrder($event)" [orderedItems]="cartService.items()" />
@@ -30,7 +30,7 @@ import { CartService } from './services/Cart.service';
       <h3></h3>
     </aside>
   `,
-  styleUrls: ['./app.component.css'],
+    styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   
