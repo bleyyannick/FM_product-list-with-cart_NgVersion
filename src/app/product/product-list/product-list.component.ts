@@ -23,6 +23,7 @@ export class ProductListComponent {
   productService = inject(ProductService);
   
   addItemsToCart = output<selectableProduct>({});
+  updateItemInCart = output<selectableProduct>({});
   deleteItemFromCart = output<selectableProduct>({});
 
   addCart(selectedProduct: selectableProduct) {
@@ -34,12 +35,20 @@ export class ProductListComponent {
 
   decrement(selectedProduct: selectableProduct) {
     const shouldRemove = this.productService.decrementProduct(selectedProduct);
+    const updatedProduct = this.productService.getProductByName(selectedProduct.item.name);
+    
     if (shouldRemove) {
       this.deleteItemFromCart.emit(selectedProduct);
+    } else if (updatedProduct) {
+      this.updateItemInCart.emit(updatedProduct);
     }
   }
 
   increment(selectedProduct: selectableProduct) {
     this.productService.incrementProduct(selectedProduct);
+    const updatedProduct = this.productService.getProductByName(selectedProduct.item.name);
+    if (updatedProduct) {
+      this.updateItemInCart.emit(updatedProduct);
+    }
   }
 }
