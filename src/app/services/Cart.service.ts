@@ -9,7 +9,7 @@ export class CartService {
   private cartItems = signal<selectableProduct[]>([]);
   private isOrderConfirmed = signal<boolean>(false);
 
-  // Computed signals pour les valeurs dérivées
+
   items = computed(() => this.cartItems());
   totalQuantity = computed(() => 
     this.cartItems().reduce((acc, { quantity }) => acc + quantity, 0)
@@ -26,14 +26,12 @@ export class CartService {
     this.cartItems.update(items => {
       const existingItem = items.find(i => i.item.name === item.item.name);
       if (existingItem) {
-        // Si l'item existe déjà, on met à jour sa quantité
         return items.map(i => 
           i.item.name === item.item.name 
             ? { ...i, quantity: item.quantity, isSelected: item.isSelected }
             : i
         );
       }
-      // Sinon on l'ajoute
       return [...items, item];
     });
   }
