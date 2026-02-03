@@ -1,27 +1,66 @@
-# FMProductListWithCart
+# FM Product List with Cart - Angular Version
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.5.
+## 📋 À propos du projet
 
-## Development server
+Ce projet est une implémentation d'un défi Frontend Mentor développé avec Angular. Il a été initialement créé pour mettre à jour mes compétences sur Angular et expérimenter avec les **signals** introduits dans les versions récentes du framework.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## 🚀 Évolution du projet
 
-## Code scaffolding
+- **Version initiale** : Développée avec Angular 17
+- **Version actuelle** : Migrée vers **Angular 21**
+- **Configuration des tests** : Intégration de **Vitest** pour les tests unitaires et **Playwright** pour les tests end-to-end (tests en cours de développement)
+- **CI/CD** : Pipeline GitHub Actions (prévu)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## 🛠️ Technologies utilisées
 
-## Build
+- **Angular 21** avec Signals
+- **TypeScript**
+- **Vitest** pour les tests unitaires
+- **Playwright** pour les tests E2E
+- **Angular CLI**
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+## 💻 Développement
 
-## Running unit tests
+### Serveur de développement
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```bash
+npm start
+# ou
+ng serve
+```
 
-## Running end-to-end tests
+Naviguez vers `http://localhost:4200/`. L'application se rechargera automatiquement si vous modifiez les fichiers sources.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+### Build
 
-## Further help
+```bash
+ng build
+```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Les fichiers de build seront stockés dans le répertoire `dist/`.
+
+## 🧪 Tests
+
+### Tests unitaires
+
+La configuration Vitest est en place. Pour lancer les tests :
+
+```bash
+npm test
+```
+
+_(Tests en cours de développement)_
+
+### Tests end-to-end
+
+La configuration Playwright est en place. Pour lancer les tests :
+
+```bash
+npm run test-e2e
+```
+
+_(Tests en cours de développement)_
+
+## 📚 Ressources
+
+Pour plus d'aide sur Angular CLI, utilisez `ng help` ou consultez la [documentation officielle Angular CLI](https://angular.dev/tools/cli).
