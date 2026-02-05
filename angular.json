@@ -67,12 +67,13 @@
           "builder": "@angular/build:extract-i18n"
         },
         "test": {
-          "builder": "@angular/build:unit-test",
+          "builder": "@analogjs/vitest-angular:test",
           "options": {
             "buildTarget": "FM_product-list-with-cart:build",
             "runner": "vitest",
             "browsers": ["chromium"],
             "tsConfig": "tsconfig.spec.json",
+            "providersFile": "src/test-setup.ts",
             "include": ["src/**/*.spec.ts"]
           }
         }
