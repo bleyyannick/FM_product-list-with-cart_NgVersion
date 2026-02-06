@@ -1,0 +1,39 @@
+<article class="product-item">
+  <div class="product-image">
+    <img
+      [src]="item().item.image.desktop"
+      [alt]="item().item.name"
+      [class.isSelected]="isSelectableProduct()"
+    />
+    <button [class.btn]="true" [class.selected-product]="isSelectableProduct()">
+      @if (isSelectableProduct()) {
+        <img
+          class="icon-decrement"
+          (click)="updateCart('decrement')"
+          src="assets/images/icon-decrement-quantity.svg"
+          alt="decrement product quantity"
+        />
+        <p class="product-quantity">{{ item().quantity }}</p>
+        <img
+          class="icon-increment"
+          (click)="updateCart('increment')"
+          src="assets/images/icon-increment-quantity.svg"
+          alt="increment product quantity"
+        />
+      } @else {
+        <img
+          (click)="updateCart('add')"
+          class="icon-cart"
+          src="assets/images/icon-add-to-cart.svg"
+          alt="Add to cart"
+        />
+        Add to cart
+      }
+    </button>
+  </div>
+  <div class="product-description">
+    <p>{{ item().item.category }}</p>
+    <p>{{ item().item.name }}</p>
+    <p>{{ item().item.price | currency: "USD" }}</p>
+  </div>
+</article>

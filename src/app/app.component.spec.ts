@@ -14,18 +14,11 @@ describe('AppComponent', () => {
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
-
-  test(`should have the 'FM_product-list-with-cart' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    console.log(app);
-    expect(app).toEqual('FM_product-list-with-cart');
-  });
-
+  
   test('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, FM_product-list-with-cart');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Desserts');
   });
 });

@@ -1,7 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import {test, describe, expect, beforeEach } from 'vitest';
-
+import { describe, beforeEach, test, expect } from 'vitest';
 import { CartComponent } from './cart.component';
 
 describe('CartComponent', () => {

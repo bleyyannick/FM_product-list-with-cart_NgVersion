@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { describe, beforeEach, test, expect } from 'vitest';
 import { CartItemComponent } from './cart-item.component';
+import { createMockSelectableProduct } from '../testing/fixtures/product.fixtures';
 
 describe('CartItemComponent', () => {
   let component: CartItemComponent;
@@ -14,10 +15,11 @@ describe('CartItemComponent', () => {
 
     fixture = TestBed.createComponent(CartItemComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('cartItem', createMockSelectableProduct({ isSelected: true, quantity: 2 }));
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(component).toBeTruthy();
   });
 });

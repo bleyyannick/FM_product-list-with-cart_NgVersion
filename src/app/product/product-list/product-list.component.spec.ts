@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { describe, beforeEach, test, expect } from 'vitest';
 import { ProductListComponent } from './product-list.component';
 
 describe('ProductListComponent', () => {
@@ -17,7 +17,7 @@ describe('ProductListComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  test('should create', () => {
     expect(component).toBeTruthy();
   });
 });
